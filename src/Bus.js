@@ -55,7 +55,6 @@ module.exports = Position;
 class Bus {
     constructor(commands){
         this.lines = commands.split('\n');
-
         const firstValidIndex = this.lines.findIndex((line) => line.startsWith('PLACE'));
         this.lines = this.lines.slice(firstValidIndex);
         this._initPlace(this.lines.shift());
@@ -82,8 +81,6 @@ class Bus {
                 this.direction.turnRight();
             }else if('report' === command.toLowerCase()){
                 this.report();
-            }else if(command.toLowerCase().startsWith('place')){
-                this._initPlace(command);
             }
         });
         return this.outputs;

@@ -60,11 +60,11 @@ describe('bus', function() {
     assert.equal(bus.run()[0], '2,1,EAST');
   });
 
-  it('should execute another PLACE command and use the new one to continue', function() {
+  it('should ignore another PLACE command and keep going', function() {
     const input = 'PLACE 1,1,EAST\nMOVE\nREPORT\nPLACE 3,3,SOUTH\nMOVE\nREPORT';
     const bus = new Bus(input);
 
     assert.equal(bus.run()[0], '2,1,EAST');
-    assert.equal(bus.run()[1], '3,2,SOUTH');
+    assert.equal(bus.run()[1], '3,1,EAST');
   });
 });
