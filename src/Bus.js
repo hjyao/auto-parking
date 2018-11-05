@@ -1,9 +1,12 @@
 class Bus {
     constructor(commands){
-        this.commands = commands;
+        const initDirection = commands.split(' ')[1].split(',');
+        this.x = parseInt(initDirection[0]);
+        this.y = parseInt(initDirection[1]);
+        this.direction = initDirection[2];
     }
     report(){
-        return '0,0,NORTH';
+        return `${this.x},${this.y},${this.direction}`;
     }
 }
 
