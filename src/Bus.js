@@ -58,9 +58,7 @@ class Bus {
 
         const firstValidIndex = lines.findIndex((line) => line.startsWith('PLACE'));
         lines = lines.slice(firstValidIndex);
-        const initDirection = lines.shift().split(/ /g)[1].split(',');
-        this.position = new Position(parseInt(initDirection[0]), parseInt(initDirection[1]));
-        this.direction = new Direction(initDirection[2]);
+        this._initPlace(lines.shift());
 
         lines.forEach((command) => {
             if('move' === command.toLowerCase()){
@@ -69,8 +67,15 @@ class Bus {
                 this.direction.turnLeft();
             }else if('right' === command.toLowerCase()){
                 this.direction.turnRight();
+            }else if(command.toLowerCase().startsWith('place')){
+                this._initPlace(command);
             }
         });
+    }
+    _initPlace(command){
+        const place = command.split(/ /g)[1].split(',');
+        this.position = new Position(parseInt(place[0]), parseInt(place[1]));
+        this.direction = new Direction(place[2]);
     }
     report(){
         return `${this.position.x},${this.position.y},${this.direction.asString()}`;

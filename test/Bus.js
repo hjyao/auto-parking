@@ -61,4 +61,11 @@ describe('bus', function() {
     assert.equal(bus.report(), '2,1,EAST');
   });
 
+  it('should execute another PLACE command and use the new one to continue', function() {
+    const input = 'PLACE 1,1,EAST\nMOVE\nPLACE 3,3,SOUTH\nMOVE';
+    const bus = new Bus(input);
+
+    assert.equal(bus.report(), '3,2,SOUTH');
+  });
+
 });
