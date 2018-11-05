@@ -17,6 +17,28 @@ describe('bus', function() {
     const bus = new Bus(input);
 
     assert.equal(bus.report(), '0,1,NORTH');
-  })
+  });
+  
+  it('should be able to turn left', function() {
+    const input = 'PLACE 0,0,NORTH\nLEFT';
+    const bus = new Bus(input);
+
+    assert.equal(bus.report(), '0,0,WEST');
+  });
+
+  it('should be able to turn right', function() {
+    const input = 'PLACE 0,0,NORTH\nRIGHT';
+    const bus = new Bus(input);
+
+    assert.equal(bus.report(), '0,0,EAST');
+  });
+
+  it('should be able to turn and move', function() {
+    const input = 'PLACE 0,0,NORTH\nRIGHT\nMOVE\nMOVE\nLEFT\nLEFT';
+    const bus = new Bus(input);
+
+    assert.equal(bus.report(), '2,0,WEST');
+  });
+
 
 });

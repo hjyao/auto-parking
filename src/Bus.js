@@ -7,11 +7,25 @@ class Direction {
             'SOUTH': new Position(0, -1),
             'WEST': new Position(-1, 0)
         };
+        this.keys = Object.keys(this.map);
     }
 
     move(position){
         const offset = this.map[this.current];
         return position.move(offset);
+    }
+
+    turnLeft(){
+        this._turn(3);
+    }
+
+    turnRight(){
+        this._turn(1);
+    }
+
+    _turn(factor){
+        const newIndex = (this.keys.indexOf(this.current) + factor) % this.keys.length;
+        this.current = this.keys[newIndex];
     }
 
     asString(){
@@ -43,7 +57,11 @@ class Bus {
 
         lines.forEach((command) => {
             if('move' === command.toLowerCase()){
-                this.position = this.direction.move(this.position);
+                this.direction.move(this.position);
+            }else if('left' === command.toLowerCase()){
+                this.direction.turnLeft();
+            }else if('right' === command.toLowerCase()){
+                this.direction.turnRight();
             }
         });
     }
