@@ -40,5 +40,18 @@ describe('bus', function() {
     assert.equal(bus.report(), '2,0,WEST');
   });
 
+  it('should ignore exiting move', function() {
+    const input = 'PLACE 0,0,WEST\nMOVE\nMOVE';
+    const bus = new Bus(input);
+
+    assert.equal(bus.report(), '0,0,WEST');
+  });
+
+  it('should be able to keep moving after exiting move', function() {
+    const input = 'PLACE 0,0,WEST\nMOVE\nMOVE\nRIGHT\nMOVE';
+    const bus = new Bus(input);
+
+    assert.equal(bus.report(), '0,1,NORTH');
+  });
 
 });

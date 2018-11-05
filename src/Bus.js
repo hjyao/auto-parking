@@ -41,9 +41,13 @@ class Position {
     }
 
     move(offset){
-        this.x += offset.x;
-        this.y += offset.y
-        return this;
+        const x = this.x + offset.x;
+        const y = this.y + offset.y;
+        if(!(x < 0 || x > 4 || y < 0 || y > 4)){
+            this.x = x;
+            this.y = y;
+            return this;
+        }
     }
 }
 module.exports = Position;
