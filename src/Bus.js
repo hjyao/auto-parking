@@ -54,31 +54,39 @@ module.exports = Position;
 
 class Bus {
     constructor(commands){
-        let lines = commands.split('\n');
+        this.lines = commands.split('\n');
 
-        const firstValidIndex = lines.findIndex((line) => line.startsWith('PLACE'));
-        lines = lines.slice(firstValidIndex);
-        this._initPlace(lines.shift());
+        const firstValidIndex = this.lines.findIndex((line) => line.startsWith('PLACE'));
+        this.lines = this.lines.slice(firstValidIndex);
+        this._initPlace(this.lines.shift());
+        this.outputs = [];
+    }
 
-        lines.forEach((command) => {
+    _initPlace(command){
+        const place = command.split(/ /g)[1].split(',');
+        this.position = new Position(parseInt(place[0]), parseInt(place[1]));
+        this.direction = new Direction(place[2]);
+    }
+
+    report(){
+        this.outputs.push(`${this.position.x},${this.position.y},${this.direction.asString()}`);
+    }
+
+    run(){
+        this.lines.forEach((command) => {
             if('move' === command.toLowerCase()){
                 this.direction.move(this.position);
             }else if('left' === command.toLowerCase()){
                 this.direction.turnLeft();
             }else if('right' === command.toLowerCase()){
                 this.direction.turnRight();
+            }else if('report' === command.toLowerCase()){
+                this.report();
             }else if(command.toLowerCase().startsWith('place')){
                 this._initPlace(command);
             }
         });
-    }
-    _initPlace(command){
-        const place = command.split(/ /g)[1].split(',');
-        this.position = new Position(parseInt(place[0]), parseInt(place[1]));
-        this.direction = new Direction(place[2]);
-    }
-    report(){
-        return `${this.position.x},${this.position.y},${this.direction.asString()}`;
+        return this.outputs;
     }
 }
 
