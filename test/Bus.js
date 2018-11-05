@@ -67,4 +67,18 @@ describe('bus', function() {
     assert.equal(bus.run()[0], '2,1,EAST');
     assert.equal(bus.run()[1], '3,1,EAST');
   });
+
+  it('should ignore invalid PLACE command', function() {
+    const input1 = 'PLACE 10,10,EAST\nREPORT\nPLACE 1,1,SOUTH\nREPORT';
+    const bus1 = new Bus(input1);
+
+    const input2 = 'PLACE hello,kitty,EAST\nREPORT\nPLACE 1,1,SOUTH\nREPORT';
+    const bus2 = new Bus(input2);
+
+    const input3 = 'PLACE 1,1,SOUTHEAST\nREPORT\nPLACE 1,1,SOUTH\nREPORT';
+    const bus3 = new Bus(input3);
+    assert.equal(bus1.run()[0], '1,1,SOUTH');
+    assert.equal(bus2.run()[0], '1,1,SOUTH');
+    assert.equal(bus3.run()[0], '1,1,SOUTH');
+  });
 });

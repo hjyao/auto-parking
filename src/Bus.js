@@ -55,10 +55,21 @@ module.exports = Position;
 class Bus {
     constructor(commands){
         this.lines = commands.split('\n');
-        const firstValidIndex = this.lines.findIndex((line) => line.startsWith('PLACE'));
+        const firstValidIndex = this.lines.findIndex((line) => line.startsWith('PLACE') && this._isValidPlace(line));
         this.lines = this.lines.slice(firstValidIndex);
         this._initPlace(this.lines.shift());
         this.outputs = [];
+    }
+    _isValidPlace(command){
+        const place = command.split(/ /g)[1].split(',');
+        const x = parseInt(place[0]);
+        const y = parseInt(place[1]);
+        if(isNaN(x) || isNaN(y) ||
+            x < 0 || x > 4 || y < 0 || y > 4 ||
+            !['north', 'east', 'south', 'west'].includes(place[2].toLowerCase())){
+            return false;
+        }
+        return true;
     }
 
     _initPlace(command){
