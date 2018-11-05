@@ -51,10 +51,13 @@ class Position {
     }
 }
 module.exports = Position;
+
 class Bus {
     constructor(commands){
         let lines = commands.split('\n');
 
+        const firstValidIndex = lines.findIndex((line) => line.startsWith('PLACE'));
+        lines = lines.slice(firstValidIndex);
         const initDirection = lines.shift().split(/ /g)[1].split(',');
         this.position = new Position(parseInt(initDirection[0]), parseInt(initDirection[1]));
         this.direction = new Direction(initDirection[2]);

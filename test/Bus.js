@@ -54,4 +54,11 @@ describe('bus', function() {
     assert.equal(bus.report(), '0,1,NORTH');
   });
 
+  it('should ignore invalid commands until the first PLACE for initialization', function() {
+    const input = 'RIGHT\nMOVE\nMOVE\nPLACE 1,1,EAST\nMOVE';
+    const bus = new Bus(input);
+
+    assert.equal(bus.report(), '2,1,EAST');
+  });
+
 });
