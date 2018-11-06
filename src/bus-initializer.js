@@ -1,6 +1,6 @@
-const Direction = require('./Direction');
-const Position = require('./Position');
-const Bus = require('./Bus');
+const Direction = require('./model/Direction');
+const Position = require('./model/Position');
+const Bus = require('./model/Bus');
 const placeParser = require('./place-parser');
 
 function busInitializer(commands){
