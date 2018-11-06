@@ -1,3 +1,4 @@
+const Carpark = require('./Carpark');
 class Position {
     constructor(x, y){
         this.x = x;
@@ -5,9 +6,11 @@ class Position {
     }
 
     move(offset){
+        const carpark = new Carpark();
         const x = this.x + offset.x;
         const y = this.y + offset.y;
-        if(!(x < 0 || x > 4 || y < 0 || y > 4)){
+
+        if(!carpark.isOutOfBoundary(x, y)){
             this.x = x;
             this.y = y;
             return this;

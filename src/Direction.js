@@ -25,13 +25,13 @@ class Direction {
         this._turn(1);
     }
 
+    asString(){
+        return this.current;
+    }
+
     _turn(factor){
         const newIndex = (this.keys.indexOf(this.current) + factor) % this.keys.length;
         this.current = this.keys[newIndex];
-    }
-
-    asString(){
-        return this.current;
     }
 }
 module.exports = Direction;
