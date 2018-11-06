@@ -1,6 +1,7 @@
 const Carpark = require('./Carpark');
 
 function placeParser(){
+    const VALID_DIRECTIONS = ['NORTH', 'EAST', 'SOUTH', 'WEST'];
     const parse = function(command){
         return command.split(/ /g)[1].split(',');
     }
@@ -12,7 +13,7 @@ function placeParser(){
         const carpark = new Carpark();
         if(isNaN(x) || isNaN(y) ||
             carpark.isOutOfBoundary(x, y) ||
-            !['north', 'east', 'south', 'west'].includes(place[2].toLowerCase())){
+            !VALID_DIRECTIONS.includes(place[2].toUpperCase())){
             return false;
         }
         return true;
