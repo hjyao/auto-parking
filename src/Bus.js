@@ -58,8 +58,16 @@ class Bus {
         const firstValidIndex = this.lines.findIndex((line) => line.startsWith('PLACE') && this._isValidPlace(line));
         this.lines = this.lines.slice(firstValidIndex);
         this._initPlace(this.lines.shift());
+        this.commandsMap = {
+            'MOVE': this.move.bind(this),
+            'LEFT': this.left.bind(this),
+            'RIGHT': this.right.bind(this),
+            'REPORT': this.report.bind(this)
+        };
+        this.commands = this.lines.map((c) => this.commandsMap[c]).filter((c) => c);
         this.outputs = [];
     }
+
     _isValidPlace(command){
         const place = command.split(/ /g)[1].split(',');
         const x = parseInt(place[0]);
@@ -83,18 +91,20 @@ class Bus {
     }
 
     run(){
-        this.lines.forEach((command) => {
-            if('move' === command.toLowerCase()){
-                this.direction.move(this.position);
-            }else if('left' === command.toLowerCase()){
-                this.direction.turnLeft();
-            }else if('right' === command.toLowerCase()){
-                this.direction.turnRight();
-            }else if('report' === command.toLowerCase()){
-                this.report();
-            }
-        });
+        this.commands.forEach((command) => command());
         return this.outputs;
+    }
+
+    move(){
+        this.direction.move(this.position);
+    }
+
+    left(){
+        this.direction.turnLeft();
+    }
+    
+    right(){
+        this.direction.turnRight();
     }
 }
 
