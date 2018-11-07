@@ -1,4 +1,4 @@
-## Some thoughts:
+## Some thoughts:
 1. I was trying to build it incrementally by doing TDD, ```test/Bus.js``` explained how would it work.
 
 2. I didn't do too much design, as I want to keep it as simple as possible. Actually, I implemented all functions first, and then started doing refactoring.
