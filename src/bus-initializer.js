@@ -1,4 +1,4 @@
-const Direction = require('./model/Direction');
+const Navigation = require('./model/Navigation');
 const Position = require('./model/Position');
 const Bus = require('./model/Bus');
 const placeParser = require('./place-parser');
@@ -12,8 +12,8 @@ function busInitializer(commands){
     return {
         init: function(){
             const position = new Position(parseInt(place[0]), parseInt(place[1]));
-            const direction = new Direction(place[2]);
-            const bus = new Bus(position, direction);
+            const navigation = new Navigation(place[2], position);
+            const bus = new Bus(navigation);
 
             const commandsMap = {
                 'MOVE': bus.move.bind(bus),

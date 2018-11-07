@@ -1,13 +1,12 @@
 class Bus {
 
-    constructor(position, direction){
-        this.position = position;
-        this.direction = direction;
+    constructor(navigation){
+        this.navigation = navigation;
         this.outputs = [];
     }
 
     report(){
-        this.outputs.push(`${this.position.x},${this.position.y},${this.direction.asString()}`);
+        this.outputs.push(this.navigation.asString());
     }
 
     run(commands){
@@ -16,15 +15,15 @@ class Bus {
     }
 
     move(){
-        this.direction.move(this.position);
+        this.navigation.move(this.position);
     }
 
     left(){
-        this.direction.turnLeft();
+        this.navigation.turnLeft();
     }
 
     right(){
-        this.direction.turnRight();
+        this.navigation.turnRight();
     }
 }
 
